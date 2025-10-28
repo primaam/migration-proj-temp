@@ -1,0 +1,30 @@
+// ini config netlify 
+[build]
+  # Default build command.
+  command = "CI=false npm run build"
+
+[build.environment]
+    NODE_VERSION="14.20.1"
+    NODE_OPTIONS="--max_old_space_size=4096"
+
+// masukkan api yang dibutuhkan di env
+// bisa dibuat beberapa versi deployment, maksudnya seperti UAT atau demo
+[context.{environment dev dll, sepertinya branch ya}.environment]
+    REACT_APP_ENV = "prod"
+    REACT_APP_API_URL = {api url nya}
+    REACT_APP_API_DOCUMENT = {api url nya}
+    REACT_APP_API_FORGET_PASS = {api url nya}
+    REACT_APP_DOC_CONTRACT = {api url nya}
+
+[context.development.environment] # development is a branch name
+    REACT_APP_ENV = "dev"
+    REACT_APP_API_URL = {api url nya}
+    REACT_APP_API_DOCUMENT = {api url nya}
+    REACT_APP_API_FORGET_PASS = {api url nya}
+    REACT_APP_DOC_CONTRACT = {api url nya}
+
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
